@@ -22,6 +22,7 @@ const ChatProvider = (props) => {
         auth.onAuthStateChanged(user => {
             if(user){
                 setUsuario({ uid: user.id, email: user.email, estado: true })
+                cargarMensajes()
 
             }else{
                 setUsuario({ uid: null, email: null, estado: false })
@@ -49,9 +50,21 @@ const ChatProvider = (props) => {
         })
     }
 
+    const agregarMensajes = async(uidChat, textoInput) => {
+        try {
+            await db.collection('chat').add({
+                date: Date.now(),
+                text: textoInput,
+                uid: uidChat
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
-        <ChatContext.Provider value={{usuario, ingresoUsuario, cerrarSesion}}>
+        <ChatContext.Provider value={{usuario, ingresoUsuario, cerrarSesion, mensajes, agregarMensajes}}>
             {props.children}
         </ChatContext.Provider>
     )
