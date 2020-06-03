@@ -2,16 +2,20 @@ import React, { useContext } from 'react'
 import { ChatContext } from './Context/ChatProvider'
 import Navbar from './Components/Navbar'
 
-function App() {
 
-  const { saludo } = useContext(ChatContext)
+const App = () => {
 
-  return (
-    <div>
+  const { usuario } = useContext(ChatContext)
+
+  return usuario !== null ? (
+    <>
       <Navbar />
-      {saludo}
-    </div>
-  );
-}
+      <div> chat </div>
+      
+    </>
+  ) : (
+      <div>Cargando...</div>
+    )
+}   
 
-export default App;
+export default App
