@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ChatContext } from './Context/ChatProvider'
+import Navbar from './Components/Navbar'
 
 function App() {
 
@@ -7,7 +8,8 @@ function App() {
 
   return (
     <div>
-      chat {saludo}
+      <Navbar />
+      {saludo}
     </div>
   );
 }
