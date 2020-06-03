@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { ChatContext } from './Context/ChatProvider'
 import Navbar from './Components/Navbar'
+import Chat from './Components/Chat'
 
 
 const App = () => {
@@ -10,7 +11,13 @@ const App = () => {
   return usuario !== null ? (
     <>
       <Navbar />
-      <div> chat </div>
+      {
+        usuario.estado ? (
+          <Chat />
+        ) : (
+          <div>Debes iniciar sesión</div>
+        )
+      }
       
     </>
   ) : (

@@ -12,6 +12,7 @@ const ChatProvider = (props) => {
     }
 
     const [usuario, setUsuario] = useState(dataUsuario)
+    const [mensajes, setMensajes] = useState([])
 
     useEffect(() => {
         detectarUsuario()
@@ -38,6 +39,14 @@ const ChatProvider = (props) => {
 
     const cerrarSesion = () => {
         auth.signOut()
+    }
+
+    const cargarMensajes = () => {
+        db.collection('chat').onSnapshot(query => {
+            const arrayMensajes = query.docs.map(item => item.data())
+            setMensajes(arrayMensajes)
+            console.log(arrayMensajes);
+        })
     }
 
 
