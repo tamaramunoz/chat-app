@@ -16,12 +16,13 @@ const ChatProvider = (props) => {
 
     useEffect(() => {
         detectarUsuario()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const detectarUsuario = () => {
         auth.onAuthStateChanged(user => {
             if(user){
-                setUsuario({ uid: user.id, email: user.email, estado: true })
+                setUsuario({ uid: user.uid, email: user.email, estado: true })
                 cargarMensajes()
 
             }else{
@@ -43,10 +44,9 @@ const ChatProvider = (props) => {
     }
 
     const cargarMensajes = () => {
-        db.collection('chat').onSnapshot(query => {
+        db.collection('chat').orderBy('date').onSnapshot(query => {
             const arrayMensajes = query.docs.map(item => item.data())
             setMensajes(arrayMensajes)
-            console.log(arrayMensajes);
         })
     }
 
